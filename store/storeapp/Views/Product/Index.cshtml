@@ -1,0 +1,5 @@
+@model List<StoreApp.Models.Product>
+    @foreach(StoreApp.Models.Product prd in Model)
+    {
+        <partial name="_ProductCard" model="@prd" />
+    }
