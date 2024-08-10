@@ -1,4 +1,4 @@
-namespace basics.Models;
+namespace Basics.Models;
 
 public class ErrorViewModel
 {

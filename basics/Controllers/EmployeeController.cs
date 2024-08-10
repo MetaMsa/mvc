@@ -1,19 +1,36 @@
+using Basics.Models;
 using Microsoft.AspNetCore.Mvc;
-using basics.Models;
 
-namespace basics.Controllers
+namespace Basics.Controllers
 {
     public class EmployeeController : Controller
-    {   
-        public IActionResult Employee()
+    {
+        public IActionResult Index1()
         {
-            List<Employee> msg = new List<Employee>()
+            string message = $"Hello World. {DateTime.Now.ToString()}";
+            return View("Index1",message);
+        }
+
+        public ViewResult Index2()
+        {
+            var names = new String[]
             {
-                new Employee(){Id = 1, FirstName = "John", LastName = "Doe", Age = 25},
-                new Employee(){Id = 2, FirstName = "Jane", LastName = "Doe", Age = 22},
-                new Employee(){Id = 3, FirstName = "John", LastName = "Smith", Age = 30}
+                "Ahmet",
+                "Mehmet",
+                "Can"
             };
-            return View("Employee", msg);
+            return View(names);
+        }
+
+        public IActionResult Index3()
+        {
+            var list = new List<Employee>()
+            {
+                new Employee(){Id=1, FirstName="Ahmet", LastName="Can", Age = 20},
+                new Employee(){Id=2, FirstName="Can", LastName="Dağ", Age = 25},
+                new Employee(){Id=3, FirstName="Demir", LastName="Güneş", Age = 37}
+            };
+            return View("Index3",list);
         }
     }
 }

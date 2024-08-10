@@ -1,4 +1,4 @@
-namespace basics.Models
+namespace Basics.Models
 {
     public class Employee
     {
@@ -6,6 +6,7 @@ namespace basics.Models
         public String FirstName { get; set; } = String.Empty;
         public String LastName { get; set; } = String.Empty;
         public String FullName => $"{FirstName} {LastName.ToUpper()}";
-        public int Age { get; set; }
+        public int Age { get; set; } 
+        
     }
 }
