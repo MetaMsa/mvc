@@ -16,6 +16,8 @@
                 <th>Product Name</th>
                 <th>Price</th>
                 <th>İmages</th>
+                <th>Summary</th>
+                <th>Category</th>
                 <th>Operations</th>
             </tr>
         </thead>
@@ -26,7 +28,19 @@
                     <td>@prd.ProductId</td>
                     <td>@prd.ProductName</td>
                     <td>@prd.Price.ToString("c")</td>
-                    <td><img src="@prd.ProductImage" alt="" style="width: 7rem;"></td>
+                    <td><img class="border border-dark rounded" src="@prd?.ImageUrl" alt="" style="width: 7rem; height: 7rem;"></td>
+                    <td>@prd.Summary</td>
+                    <td>
+                        @switch (prd.CategoryId)
+                        {
+                            case 1:
+                                <span class="badge bg-primary">Book</span>
+                                break;
+                            case 2:
+                                <span class="badge bg-success">Electronic</span>
+                                break;
+                        }
+                    </td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-warning" asp-action="Update" asp-route-id="@prd.ProductId">
