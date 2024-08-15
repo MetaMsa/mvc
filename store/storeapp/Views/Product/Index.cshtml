@@ -1,15 +1,17 @@
-@model IQueryable<Product>
+@model ProductListViewModel
 
 <div class="row">
         <div class="col-md-3">
                 @await Component.InvokeAsync("CategoriesMenu")
+                @await Component.InvokeAsync("ProductFilterMenu")
+                <div products="" number="3"></div>
         </div>
         <div class="col-md-9">
                 <div class="row my-3">
-@foreach (Product prd in Model)
-{
-        <partial name="_ProductCard" model="@prd" />
-}
-</div>
+                        @foreach (Product prd in Model.Products)
+                        {
+                                <partial name="_ProductCard" model="@prd" />
+                        }
+                </div>
         </div>
 </div>

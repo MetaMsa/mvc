@@ -3,6 +3,7 @@ using Entities.Models;
 using Repositories.Contracts;
 using Entities.Dtos;
 using AutoMapper;
+using Entities.RequestParameters;
 
 
 namespace Services
@@ -28,7 +29,8 @@ namespace Services
         public void DeleteOneProduct(int id)
         {
             Product product = GetOneProduct(id, false);
-            if(product is not null)
+
+            if (product is not null)
             {
                 _manager.Product.DeleteOneProduct(product);
                 _manager.Save();
@@ -40,10 +42,24 @@ namespace Services
             return _manager.Product.GetAllProducts(trackChanges);
         }
 
-        public Product? GetOneProduct(int id,bool trackChanges)
+        public IQueryable<Product> GetAllProductsWithDetails(ProductRequestParameters p)
+        {
+            return _manager.Product.GetAllProductsWithDetails(p);
+        }
+
+        public IEnumerable<Product> GetLastestProducts(int n, bool trackChanges)
+        {
+            return _manager
+                .Product
+                .FindAll(trackChanges)
+                .OrderByDescending(prd => prd.ProductId)
+                .Take(n);
+        }
+
+        public Product? GetOneProduct(int id, bool trackChanges)
         {
             var product = _manager.Product.GetOneProduct(id, trackChanges);
-            if(product is null) throw new Exception("Product not found");
+            if (product is null) throw new Exception("Product not found");
             return product;
         }
 
@@ -54,7 +70,13 @@ namespace Services
             return productDto;
         }
 
-         public void UpdateOneProduct(ProductDtoForUpdate productDto)
+        public IEnumerable<Product> GetShowcaseProducts(bool trackChanges)
+        {
+            var products = _manager.Product.GetShowcaseProducts(trackChanges);
+            return products;
+        }
+
+        public void UpdateOneProduct(ProductDtoForUpdate productDto)
         {
             var entity = _mapper.Map<Product>(productDto);
             _manager.Product.UpdateOneProduct(entity);
